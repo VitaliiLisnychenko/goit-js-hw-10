@@ -1,0 +1,76 @@
+import { fetchBreeds, fetchCatByBreed } from './js/cat-api';
+import Notiflix from 'notiflix';
+import SlimSelect from 'slim-select';
+
+const breedSlctEl = document.querySelector('.breed-select');
+const catInfoEl = document.querySelector('.cat-info');
+
+// breedSlctEl.addEventListener('change', onBreedSlct);
+
+// function onBreedSlct(evt) {
+//   Notiflix.Loading.hourglass('Loading data, please wait...');
+//   catInfoEl.innerHTML = '';
+
+//   const breedOpt = fetchCatByBreed(evt.target.velue);
+
+//   breedOpt
+//     .then(data => {
+//       createMarkupCard(data);
+//       Notiflix.Loading.remove();
+//     })
+//     .catch(err => errorMsg(err));
+// }
+
+// function createMarkupSlct(breeds) {
+//   const markupSlct = breeds
+//     .map(breed => {
+//       return `<option value="${breed.id}">${breed.name}</option>`;
+//     })
+//     .join();
+
+//   breedSlctEl.innerHTML = markupSlct;
+
+//   breedSlctEl.style.visibility = 'inherit';
+//   new SlimSelect({
+//     select: '.breed-select',
+//   });
+//   // console.log(markupSlct);
+// }
+
+// function createMarkupCard(data) {
+//   const markupSlct = el => {
+//     return `<h1>${el.breeds[0].name}</h1>
+//     <p><strong>Description: </strong>${el.breeds[0].description}</p>
+//     <p><strong>Temperament: </strong>${el.breeds[0].temperament}</p>
+//     <img src="${el.url}" alt="${el.breeds[0].name}"></img>`;
+//   };
+//   catInfoEl.innerHTML = markupSlct(data[0]);
+// }
+// // function createMarkupCard(breed) {
+// //   const { url, breeds } = breed;
+// //   const { name, description, temperament } = breeds[0];
+
+// //   const markupSlct = `<h1>${name}</h1>
+// //   <p>${description}</p>
+// //   <p><strong>Temperament: </strong>${temperament}</p>
+// //   <img src=${url}>`;
+
+// //   catInfoEl.innerHTML = markupSlct;
+// // }
+
+// Notiflix.Loading.hourglass('Loading data, please wait...');
+
+// fetchBreeds()
+//   .then(breeds => {
+//     createMarkupSlct(breeds);
+
+//     Notiflix.Loading.remove();
+//   })
+//   .catch(err => errorMsg(err));
+
+// function errorMsg() {
+//   Notiflix.Loading.remove();
+//   Notiflix.Notify.failure(
+//     'Oops! Something went wrong! Try reloading the page!'
+//   );
+// }
