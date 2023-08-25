@@ -38,7 +38,7 @@ function onBreedSlct(evt) {
   Notiflix.Loading.hourglass('Loading data, please wait...');
   catInfoEl.innerHTML = '';
 
-  const breedOpt = fetchCatByBreed(evt.target.velue);
+  const breedOpt = fetchCatByBreed(evt.target.value);
 
   breedOpt
     .then(data => {
