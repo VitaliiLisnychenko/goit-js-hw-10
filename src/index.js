@@ -5,72 +5,62 @@ import SlimSelect from 'slim-select';
 const breedSlctEl = document.querySelector('.breed-select');
 const catInfoEl = document.querySelector('.cat-info');
 
-// breedSlctEl.addEventListener('change', onBreedSlct);
+breedSlctEl.addEventListener('change', onBreedSlct);
 
-// function onBreedSlct(evt) {
-//   Notiflix.Loading.hourglass('Loading data, please wait...');
-//   catInfoEl.innerHTML = '';
 
-//   const breedOpt = fetchCatByBreed(evt.target.velue);
+function createMarkupSlct(breeds) {
+  const markupSlctBreeds = breeds
+    .map(breed => {
+      return `<option value="${breed.id}">${breed.name}</option>`;
+    })
+    .join('');
 
-//   breedOpt
-//     .then(data => {
-//       createMarkupCard(data);
-//       Notiflix.Loading.remove();
-//     })
-//     .catch(err => errorMsg(err));
-// }
+  breedSlctEl.innerHTML = markupSlctBreeds;
 
-// function createMarkupSlct(breeds) {
-//   const markupSlct = breeds
-//     .map(breed => {
-//       return `<option value="${breed.id}">${breed.name}</option>`;
-//     })
-//     .join();
+  breedSlctEl.style.visibility = 'inherit';
+  new SlimSelect({
+    select: '.breed-select',
+  });
+}
 
-//   breedSlctEl.innerHTML = markupSlct;
+function createMarkupCard(data) {
+  const markupSlctCat = el => {
+    return `<h1>${el.breeds[0].name}</h1>
+    <p><strong>Description: </strong>${el.breeds[0].description}</p>
+    <p><strong>Temperament: </strong>${el.breeds[0].temperament}</p>
+    <img src="${el.url}" alt="${el.breeds[0].name}"></img>`;
+  };
 
-//   breedSlctEl.style.visibility = 'inherit';
-//   new SlimSelect({
-//     select: '.breed-select',
-//   });
-//   // console.log(markupSlct);
-// }
+  catInfoEl.innerHTML = markupSlctCat(data[0]);
+}
 
-// function createMarkupCard(data) {
-//   const markupSlct = el => {
-//     return `<h1>${el.breeds[0].name}</h1>
-//     <p><strong>Description: </strong>${el.breeds[0].description}</p>
-//     <p><strong>Temperament: </strong>${el.breeds[0].temperament}</p>
-//     <img src="${el.url}" alt="${el.breeds[0].name}"></img>`;
-//   };
-//   catInfoEl.innerHTML = markupSlct(data[0]);
-// }
-// // function createMarkupCard(breed) {
-// //   const { url, breeds } = breed;
-// //   const { name, description, temperament } = breeds[0];
+function onBreedSlct(evt) {
+  Notiflix.Loading.hourglass('Loading data, please wait...');
+  catInfoEl.innerHTML = '';
 
-// //   const markupSlct = `<h1>${name}</h1>
-// //   <p>${description}</p>
-// //   <p><strong>Temperament: </strong>${temperament}</p>
-// //   <img src=${url}>`;
+  const breedOpt = fetchCatByBreed(evt.target.velue);
 
-// //   catInfoEl.innerHTML = markupSlct;
-// // }
+  breedOpt
+    .then(data => {
+      createMarkupCard(data);
+      Notiflix.Loading.remove();
+    })
+    .catch(err => errorMsg(err));
+}
 
-// Notiflix.Loading.hourglass('Loading data, please wait...');
+Notiflix.Loading.hourglass('Loading data, please wait...');
 
-// fetchBreeds()
-//   .then(breeds => {
-//     createMarkupSlct(breeds);
+fetchBreeds()
+  .then(breeds => {
+    createMarkupSlct(breeds);
 
-//     Notiflix.Loading.remove();
-//   })
-//   .catch(err => errorMsg(err));
+    Notiflix.Loading.remove();
+  })
+  .catch(err => errorMsg(err));
 
-// function errorMsg() {
-//   Notiflix.Loading.remove();
-//   Notiflix.Notify.failure(
-//     'Oops! Something went wrong! Try reloading the page!'
-//   );
-// }
+function errorMsg() {
+  Notiflix.Loading.remove();
+  Notiflix.Notify.failure(
+    'Oops! Something went wrong! Try reloading the page!'
+  );
+}
